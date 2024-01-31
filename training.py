@@ -33,7 +33,8 @@ def run(backend):
     # Need to put tensor on a GPU device for nccl backend
     if backend == 'nccl':
         device = torch.device("cuda:{}".format(LOCAL_RANK))
-        tensor = tensor.to(device)
+        tensor = tensor.to(device)      #   This step is necessary because NCCL requires tensors to be 
+                                        #   on the correct GPU device to manage inter-GPU communication effectively.
 
     if WORLD_RANK == 0:
         for rank_recv in range(1, WORLD_SIZE):
