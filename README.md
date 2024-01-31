@@ -62,11 +62,11 @@ To run the experiment, first (if necessary) execute `prepare4training.sh` to set
 
 ## Future Work
 Future work at the moment will be:
-- The implementation of the support for more arguments for manipulating variables for experimentation and performance comparison in scaling, mainly:
+- The implementation of support for more arguments for manipulating variables for experimentation and performance comparison in scaling, mainly:
     - Number of GPUs to be used
     - Batch size
     - Learning rate
-- The implementation of the option to manipulate training variables through arguments, mainly:
+- The implementation of an option to manipulate training variables through arguments, mainly:
     - Amount of epochs
     - Intervals for printing, validating, and saving/checkpointing.
 - The implementation of a way of monitoring GPU and memory usage to analyze resource utilization. 
