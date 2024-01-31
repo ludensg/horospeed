@@ -61,7 +61,16 @@ DeepSpeed is a deep learning optimization library that provides a suite of tools
 To run the experiment, first (if necessary) execute `prepare4training.sh` to set up the environment, and then run `training.py` with the desired framework (Horovod or DeepSpeed) as an argument.
 
 ## Future Work
-Future work at the moment will be the implementation of the support for more arguments for manipulating variables for experimentation and performance comparison in scaling (mainly the number of GPUs to be used, batch size, learning rate), plus the option to manipulate training variables through arguments (mainly amount of epochs, intervals for printing, validating, and saving/checkpointing), as well as thorough testing, to produce experimental results in a future report. Also, I will implement a way of monitoring GPU and memory usage to analyze resource utilization. 
+Future work at the moment will be:
+- The implementation of the support for more arguments for manipulating variables for experimentation and performance comparison in scaling, mainly:
+    - Number of GPUs to be used
+    - Batch size
+    - Learning rate
+- The implementation of the option to manipulate training variables through arguments, mainly:
+    - Amount of epochs
+    - Intervals for printing, validating, and saving/checkpointing.
+- The implementation of a way of monitoring GPU and memory usage to analyze resource utilization. 
+- Thorough testing, to produce experimental results in a future report.
 
 ## Potential Ways Forward
 Either focusing on just GPU, or also analyze CPU performance, or even a mixture of CPU to GPU communication and computation.
