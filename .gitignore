@@ -1,0 +1,4 @@
+# Ignore directories
+checkpoints/
+horospeed-env/
+squad/
