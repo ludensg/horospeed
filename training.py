@@ -96,13 +96,20 @@ validation_loader = DataLoader(validation_dataset, batch_size=16, shuffle=False)
 
 # Framework-specific setup
 if framework == 'horovod':
-    import horovod.torch as hvd
-    hvd.init()
-    torch.cuda.set_device(hvd.local_rank())
-    model.cuda()
-    optimizer = AdamW(model.parameters(), lr=3e-5 * hvd.size())
-    hvd.broadcast_parameters(model.state_dict(), root_rank=0)
-    hvd.broadcast_optimizer_state(optimizer, root_rank=0)
+    import horovod.torch as hvd    
+    hvd.init()                                                       # initializes Horovod, which sets up the necessary environment for distributed training.
+
+    torch.cuda.set_device(hvd.local_rank())                          # sets the specific GPU for each process to use. hvd.local_rank() returns the unique
+                                                                     #  identifier (rank) of the GPU on the current node, ensuring that each process uses a different GPU.
+                                                                     
+    model.cuda()            # moves the model to the designated GPU, enabling it to perform computations on that device.
+
+    optimizer = AdamW(model.parameters(), lr=3e-5 * hvd.size())     # The learning rate is scaled by the number of workers (hvd.size()).
+                                                                    #   Multiplying the base learning rate (3e-5) by the number of workers helps maintain
+                                                                    #   the overall learning rate balance when the batch size increases with more GPUs.
+    
+    hvd.broadcast_parameters(model.state_dict(), root_rank=0)       # these two lines ensure that all processes start with the same model parameters and optimizer state,
+    hvd.broadcast_optimizer_state(optimizer, root_rank=0)           #   broadcasting from the root rank (usually rank 0) to all other processes in the training job.
     
 elif framework == 'deepspeed':
     import deepspeed
